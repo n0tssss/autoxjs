@@ -2,12 +2,14 @@
  * @Author: N0ts
  * @Date: 2024-09-11 10:48:50
  * @Description: test
- * @FilePath: \autoxjs\main.js
+ * @FilePath: \autoxjs\mi.js
  * @Mail: mail@n0ts.top
  */
 
 auto.waitFor();
 toast("插件已启用");
+
+const whiteObservePackages = ["com.tencent.mobileqq", "com.xiaomi.smarthome"];
 
 const lockNumberXY = {
     1: [260, 1380],
@@ -22,14 +24,10 @@ const lockNumberXY = {
     0: [540, 1920]
 };
 
-function getLockNumberXY(number) {
-    return lockNumberXY[number];
-}
-
 const unlockPhone = [
     () => {
         device.wakeUpIfNeeded();
-        return 300;
+        return 1000;
     },
     () => {
         swipe(600, 1600, 500, 800, 100);
@@ -38,7 +36,7 @@ const unlockPhone = [
     () => {
         const pwd = "945520";
         pwd.split("").forEach((number) => {
-            const xy = getLockNumberXY(number);
+            const xy = lockNumberXY[number];
             if (!xy) return;
             click(xy[0], xy[1]);
             sleep(10);
@@ -46,20 +44,6 @@ const unlockPhone = [
         return 1000;
     }
 ];
-
-/**
- * 执行步骤
- * @param {Array} step
- */
-function startStep(step, msg) {
-    step.forEach((fn) => {
-        const result = fn(msg);
-        if (result) {
-            sleep(result);
-        }
-    });
-    return true;
-}
 
 const qqSendMsg = [
     () => {
@@ -71,40 +55,59 @@ const qqSendMsg = [
         console.log("成功打开 QQ");
         return 1000;
     },
-    (msg) => {
-        const name = "坚果的坚果";
+    (params) => {
+        const name = params.shift();
 
         descContains(name).waitFor();
-        sleep(500);
         descContains(name).click();
         sleep(500);
-        editable().setText(msg);
-        sleep(500);
-        text("发送").click();
-        sleep(500);
+
+        params.forEach((msg) => {
+            editable().setText(msg);
+            sleep(500);
+            text("发送").click();
+            sleep(500);
+        });
+
         back();
         sleep(500);
         lockScreen();
     }
 ];
 
+/**
+ * 执行步骤
+ * @param {Array} step
+ */
+function startStep(step, params) {
+    step.forEach((fn) => {
+        const result = fn(params);
+        if (result) {
+            sleep(result);
+        }
+    });
+    return true;
+}
+
 const operate = {
-    QQ: (msg) => {
-        startStep(qqSendMsg, msg);
+    QQ: (params) => {
+        startStep(qqSendMsg, params);
     }
 };
 
 events.observeNotification();
 events.onNotification(function (n) {
-    if (n.getPackageName() != "com.xiaomi.smarthome") return; //过滤非小米智能家居消息
-    const info = n.getText().split(":");
+    if (!whiteObservePackages.includes(n.getPackageName())) return;
+    const info = n.getText().split("，");
+    if (!operate[info[0]]) return;
     if (!device.isScreenOn()) startStep(unlockPhone);
-    operate[info[0]](info[1]);
+    toast("开始执行");
+    operate[info.shift()](info);
 });
 
 function test() {
-    const info = ["QQ", "测试消息"];
-    startStep(unlockPhone);
-    operate[info[0]](info[1]);
+    const info = ["QQ", "坚果的坚果", "消息1", "消息2", "消息3"];
+    if (!device.isScreenOn()) startStep(unlockPhone);
+    operate[info.shift()](info);
 }
 // test();
