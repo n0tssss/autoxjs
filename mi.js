@@ -130,4 +130,4 @@ function test() {
     if (!device.isScreenOn()) startStep(unlockPhone);
     AppOperate[info.shift()](info);
 }
-test();
+// test();
