@@ -2,7 +2,7 @@
  * @Author: N0ts
  * @Date: 2024-09-14 00:46:21
  * @Description: ui
- * @FilePath: \autoxjs\ui.js
+ * @FilePath: \mi\ui.js
  * @Mail: mail@n0ts.top
  */
 
@@ -33,6 +33,7 @@ ui.layout(
             <input id="whiteObservePackages" text="" />
             <button id="ok" text="保存设置" />
             <button id="reset" text="重置设置" />
+            <button id="copy" text="复制当前配置" />
         </vertical>
     </vertical>
 );
@@ -58,4 +59,10 @@ ui.reset.click(function () {
     ui.lockScreenPwd.setText(config.lockScreenPwd);
     ui.whiteObservePackages.setText(config.whiteObservePackages.toString());
     toast("配置已重置");
+});
+
+ui.copy.click(function () {
+    const pwd = storage.get("pwd");
+    setClip(`QQ，${pwd ? pwd + "，" : ""}通知人，消息1，消息2`);
+    toast("复制成功");
 });
