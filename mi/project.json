@@ -1,0 +1,8 @@
+{
+    "name": "米家消息监听自动化",
+    "main": "./main.js",
+    "ignore": ["build"],
+    "packageName": "com.n0ts.mi",
+    "versionName": "0.0.1",
+    "versionCode": 1
+}
