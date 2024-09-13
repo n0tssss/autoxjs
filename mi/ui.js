@@ -1,6 +1,17 @@
+/*
+ * @Author: N0ts
+ * @Date: 2024-09-14 00:46:21
+ * @Description: ui
+ * @FilePath: \autoxjs\ui.js
+ * @Mail: mail@n0ts.top
+ */
+
+"ui";
+
 const storage = require("./storage");
 const config = require("./config");
 
+ui.statusBarColor("#292729");
 ui.layout(
     <vertical>
         <text

@@ -11,11 +11,9 @@
  * @FilePath: \autoxjs\main.js
  * @Mail: mail@n0ts.top
  */
-"ui";
 
 auto.waitFor();
-toast("插件已启用");
+toast("监听已启用");
 
 require("./init");
-require("./ui");
 require("./observe");
