@@ -33,7 +33,7 @@ ui.layout(
             <input id="whiteObservePackages" text="" />
             <button id="ok" text="保存设置" />
             <button id="reset" text="重置设置" />
-            <button id="copy" text="复制当前配置" />
+            <button id="copy" text="复制模板" />
         </vertical>
     </vertical>
 );

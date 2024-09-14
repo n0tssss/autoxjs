@@ -2,7 +2,7 @@
  * @Author: N0ts
  * @Date: 2024-09-13 00:44:33
  * @Description: QQ 操作
- * @FilePath: \autoxjs\operates\qq.js
+ * @FilePath: \mi\operates\qq.js
  * @Mail: mail@n0ts.top
  */
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
             });
 
             back();
-            sleep(500);
+            sleep(100);
             lockScreen();
         }
     ]

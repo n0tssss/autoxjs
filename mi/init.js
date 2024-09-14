@@ -14,3 +14,5 @@ for (let i = 0; i < keys.length; i++) {
         storage.set(keys[i], config[keys[i]]);
     }
 }
+
+toast("初始化完成");
