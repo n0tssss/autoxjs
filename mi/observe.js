@@ -22,6 +22,9 @@ events.onNotification(function (n) {
         return;
     }
 
+    // 如果 pwd 存在，则去掉密码
+    if (pwd) info.splice(1, 1);
+
     operate(info);
 
     n.delete();

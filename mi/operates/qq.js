@@ -6,7 +6,7 @@
  * @Mail: mail@n0ts.top
  */
 module.exports = {
-    qqSendMsg: [
+    send: [
         () => {
             const launchResult = launch("com.tencent.mobileqq");
             if (!launchResult) {
@@ -16,6 +16,7 @@ module.exports = {
             return 1000;
         },
         (params) => {
+            console.log(params);
             const name = params.shift();
 
             descContains(name).waitFor();
@@ -30,7 +31,7 @@ module.exports = {
             });
 
             back();
-            sleep(100);
+            sleep(500);
             lockScreen();
         }
     ]

@@ -24,7 +24,10 @@ function startStep(step, params) {
 
 const operate = {
     QQ: (params) => {
-        startStep(operates.qq.qqSendMsg, params);
+        startStep(operates.qq.send, params);
+    },
+    WX: (params) => {
+        startStep(operates.wechat.send, params);
     }
 };
 

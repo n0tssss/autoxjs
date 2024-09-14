@@ -6,6 +6,17 @@
  * @Mail: mail@n0ts.top
  */
 
-desc("1").click();
-sleep(500);
-desc("2").click();
+// click("康少", 0);
+// sleep(500);
+// editable().setText("测试");
+// sleep(500);
+// text("发送").click();
+
+function clickFn(text) {
+    if (!click(text, 0)) {
+        sleep(500);
+        clickFn(text);
+    }
+}
+
+clickFn("康少");
