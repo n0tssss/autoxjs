@@ -63,6 +63,6 @@ ui.reset.click(function () {
 
 ui.copy.click(function () {
     const pwd = storage.get("pwd");
-    setClip(`QQ，${pwd ? pwd + "，" : ""}通知人，消息1，消息2`);
+    setClip(`触发代号，${pwd ? pwd + "，" : ""}，事件代号，通知人，消息1，消息2`);
     toast("复制成功");
 });

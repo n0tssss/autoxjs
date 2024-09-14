@@ -26,8 +26,6 @@ events.onNotification(function (n) {
     if (pwd) info.splice(1, 1);
 
     operate(info);
-
-    n.delete();
 });
 
 toast("监听已启用");
