@@ -1,5 +1,5 @@
 {
-    "name": "米家日志监听",
+    "name": "米家消息监听",
     "main": "./main.js",
     "ignore": ["build"],
     "packageName": "com.n0ts.mi",
