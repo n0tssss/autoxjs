@@ -1,24 +1,16 @@
 /*
  * @Author: N0ts
- * @Date: 2024-09-14 13:45:26
- * @Description: 微信 操作
- * @FilePath: \mi\autojs\operates\wechat.js
+ * @Date: 2024-09-13 00:44:33
+ * @Description: QQ 操作
+ * @FilePath: \mi-listen\operates\qq.js
  * @Mail: mail@n0ts.top
  */
-
-function clickFn(text) {
-    if (!click(text, 0)) {
-        sleep(500);
-        clickFn(text);
-    }
-}
-
 module.exports = {
     send: [
         () => {
-            const launchResult = launch("com.tencent.mm");
+            const launchResult = launch("com.tencent.mobileqq");
             if (!launchResult) {
-                toast("启动微信失败");
+                toast("启动QQ失败");
                 return false;
             }
             return 1000;
@@ -26,14 +18,15 @@ module.exports = {
         (params) => {
             const name = params.shift();
 
-            clickFn(name);
-            sleep(500);
+            descContains(name).waitFor();
+            descContains(name).click();
+            sleep(1000);
 
             params.forEach((msg) => {
                 editable().setText(msg);
-                sleep(500);
+                sleep(1000);
                 text("发送").click();
-                sleep(500);
+                sleep(1000);
             });
 
             back();
