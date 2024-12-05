@@ -23,13 +23,13 @@ module.exports = {
             }
             return 1000;
         },
-        (params) => {
-            const name = params.shift();
+        (config) => {
+            const name = config.name;
 
             clickFn(name);
             sleep(1000);
 
-            params.forEach((msg) => {
+            config.msg.forEach((msg) => {
                 editable().setText(msg);
                 sleep(1000);
                 text("发送").click();

@@ -2,7 +2,7 @@
  * @Author: N0ts
  * @Date: 2024-09-13 00:40:03
  * @Description: APP 操作
- * @FilePath: \mi\autojs\operate-handle.js
+ * @FilePath: \mi-listen\operate-handle.js
  * @Mail: mail@n0ts.top
  */
 
@@ -12,9 +12,9 @@ const operates = require("./operates");
  * 执行步骤
  * @param {Array} step
  */
-function startStep(step, params) {
+function startStep(step, config) {
     step.forEach((fn) => {
-        const result = fn(params);
+        const result = fn(config);
         if (result) {
             sleep(result);
         }
@@ -23,19 +23,17 @@ function startStep(step, params) {
 }
 
 const operate = {
-    qq: (params) => {
-        startStep(operates.qq.send, params);
+    qq: (config) => {
+        startStep(operates.qq.send, config);
     },
-    wechat: (params) => {
-        startStep(operates.wechat.send, params);
+    wechat: (config) => {
+        startStep(operates.wechat.send, config);
     }
 };
 
 /**
  * 打开应用发送内容
- * @param {string} info 支持APP名称,发送对象,内容1,内容2...
  */
-module.exports = function (info) {
-    if (!operate[info[0]]) return;
-    operate[info.shift()](info);
+module.exports = function (config) {
+    operate[config.app](config);
 };
