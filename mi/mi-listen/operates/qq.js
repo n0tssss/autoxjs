@@ -24,9 +24,8 @@ module.exports = {
 
             config.msg.forEach((msg) => {
                 editable().setText(msg);
-                sleep(1000);
+                sleep(500);
                 text("发送").click();
-                sleep(1000);
             });
 
             back();

@@ -19,6 +19,7 @@ function startStep(step, config) {
             sleep(result);
         }
     });
+    sleep(1000);
     return true;
 }
 
