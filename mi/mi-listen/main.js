@@ -6,12 +6,15 @@
  * @Mail: mail@n0ts.top
  */
 
+console.show(true);
+
 auto.waitFor();
 
 const config = require("./config");
 const operate = require("./operate-handle");
 
 let logsSize = 0;
+let nowTime = "";
 
 function scrollRefresh() {
     const x = device.width / 2;
@@ -19,13 +22,20 @@ function scrollRefresh() {
     swipe(x, y * 2, x, y * 5, 500);
 }
 
+function setNowTime() {
+    const now = new Date();
+    let nowTimeCache = `${now.getHours()}:${now.getMinutes()}`;
+    if (nowTimeCache != nowTime) {
+        nowTime = nowTimeCache;
+        logsSize = 0;
+    }
+}
+
 function getNewLogs() {
     const dom = textContains("监听").find();
     if (dom.empty()) return [];
 
-    const now = new Date();
-    const time = `${now.getHours()}:${now.getMinutes()}`;
-    const timeDom = textContains(time).find();
+    const timeDom = textContains(nowTime).find();
 
     if (timeDom.empty()) return [];
 
@@ -35,7 +45,7 @@ function getNewLogs() {
     const newLogs = logs.slice(0, logs.length - logsSize);
     logsSize = logs.length;
 
-    console.log(`${time} 监听到 ${timeDom.length} 条日志`);
+    console.log(`${nowTime} 监听到 ${timeDom.length} 条日志`);
     console.log("新日志", newLogs);
 
     return newLogs;
@@ -50,6 +60,7 @@ function logHandler() {
 }
 
 setInterval(() => {
+    setNowTime();
     scrollRefresh();
     logHandler();
 }, 500);
